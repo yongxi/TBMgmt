@@ -1,0 +1,27 @@
+<% include layoutTop %>
+
+<div id="main">
+   <% if (activityList) {%>
+   <h2>There are <%= activityList.length%> activities are launched.</h2>
+    <ul>
+      <% activityList.forEach(function(activity){ %>
+         <% include items/activityEnrollment %>
+       <% }) %>
+     </ul>
+    <% }%>
+</div>
+
+<script>
+   $(
+     function() {
+       setSelectedNavItem("openingAcBtn");
+     }
+   )
+   
+   function onAcActionBtnClick(formAction, acId) {
+      $("#enrollActivityForm" + acId).attr("action", formAction);
+      
+      $("#enrollActivityForm" + acId).submit();
+    }
+</script>
+<% include layoutBottom %>

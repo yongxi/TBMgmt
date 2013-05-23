@@ -1,0 +1,85 @@
+<% include layoutTop %>
+
+<script>
+  $(function() {
+    $("#sendPostDialog").dialog({
+      autoOpen: false,
+      width: 570,
+      modal: true,
+      buttons: {
+        "Create": function() {
+           if (launchAcValidator()) {
+              $("#createPostForm").submit();
+              $(this).dialog("close");
+           }
+        },
+        "Cancel": function() {
+          $(this).dialog("close");
+        }
+      },
+    });
+    
+    $("#createBtn").click(function () {
+      $("#sendPostDialog").dialog("open");
+    });
+    
+    $("#beginDate").datepicker();
+    
+    $("#beginTime").timepicker({
+       'setTime': new Date()
+    });
+  });
+  
+   function launchAcValidator() {
+       var msg = "";
+       if ($("#content").val() == "") {
+          msg = "Content cann't be empty!";
+       } else if ($("#place").val() == "") {
+          msg = "Place cann't be empty!";
+       } else if ($("#beginDate").val() == "") {
+          msg = "BeginDate cann't be empty!";
+       } else if ($("#beginTime").val() == "") {
+          msg = "Begin Time cann't be empty!";
+       }
+       if (msg == "") {
+          if (validDate($("#beginDate").val()) == false) {
+             msg = "Date format is not valid.";
+          } else if (validTime($("#beginTime").val()) == false) {
+             msg = "Time format is not valid.";
+          }
+       }
+       if (msg != "") {
+          $("#warning").text(msg).show().fadeOut(2000);
+          return false;
+       }
+       
+       return true;
+    };
+    
+    function validDate(dateStr) {
+      var reg = /^\d{1,2}\/\d{1,2}\/\d{4}$/g;
+      return reg.test(dateStr);
+    };
+    
+    function validTime(timeStr) {
+      var reg = /^\d{1,2}:\d{1,2}(am|pm)$/g;
+      return reg.test(timeStr);
+    };
+  setSelectedNavItem("allAcBtn");
+</script>
+
+<div class="launchBorder">
+  <button id="createBtn" type="input" onclick="onOpenCreatePostDialog()">Launch</button>
+</div>
+<div id="main">
+   <p>
+     <ul>
+     <% activityList.forEach(function(activity){ %>
+        <% include items/listItem %>
+      <% }) %>
+     </ul>
+   </p>
+</div>
+<% include items/launchActivity %>
+
+<% include layoutBottom %>

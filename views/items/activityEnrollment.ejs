@@ -1,0 +1,56 @@
+<div id="enrollActivityDialog<%= activity.id%>">
+  <form id="enrollActivityForm<%= activity.id%>" class="form-launch enrollmentBorder" method="post">
+     <input type="hidden" name="activityId" value="<%= activity.id %>"/>
+   <fieldset>
+       <div class="control-group">
+           <label class="control-label">Content</label>
+           <div class="controls">
+               <div id="acContent" class="content"><%= activity.content %></div>
+           </div>
+       </div>
+       
+       <div class="control-group">
+           <label class="control-label">Place</label>
+           <div class="controls">
+               <div id="acPlace" class="content"><%= activity.place %></div>
+           </div>
+       </div>
+       
+       <div class="control-group">
+           <label class="control-label">Begin Time</label>
+           <div class="controls">
+               <div id="acTime" class="content"><%= activity.createTime.toUTCString() %></div>
+           </div>
+       </div>
+       
+        <% if (usersMap && activity.attendees && activity.attendees.length > 0) {%>
+          <div class="control-group">
+              <label class="control-label">Attendees</label>
+              <div class="controls">
+                 <div class="content">
+                    <% activity.attendees.forEach(function(userId){ %>
+                       <%= usersMap[userId]  %>
+                    <% }); %>
+                  </div>
+               </div>
+          </div>
+        <% }%>
+       
+       <div class="control-group">
+           <div class="form-actions">
+           <% if (activity.attendees.indexOf(currentUser.id) == -1) {%>
+            <button id="enrollBtn<%= activity.id%>" type="button" class="btn btn-primary" onclick="onAcActionBtnClick('/enroll', '<%= activity.id%>')">Enroll</button>
+         <% } else { %>
+            <button id="quitBtn<%= activity.id%>" type="button" class="btn btn-primary" onclick="onAcActionBtnClick('/quitAc', '<%= activity.id%>')">Quit</button>
+          <% } %>
+          
+          <% if (activity.orginatorId == currentUser.id) {%>
+             <button id="closeBtn<%= activity.id%>" type="button" class="btn btn-primary" onclick="onAcActionBtnClick('/closeAc', '<%= activity.id%>')">Close It</button>
+          <% } %>
+           </div>
+          
+      </div>
+   </fieldset>
+  </form>
+  
+</div>

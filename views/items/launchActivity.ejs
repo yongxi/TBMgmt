@@ -1,0 +1,28 @@
+<div id="sendPostDialog" title="Launch Activity">
+  <form id="createPostForm" class="form-launch" method="post"  action="/launch">
+   <fieldset>
+       <div class="control-group">
+           <label class="control-label">Content</label>
+           <div class="controls">
+               <textarea class="input-xlarge" rows="10" id="content" name="content"></textarea>
+           </div>
+       </div>
+       
+       <div class="control-group">
+           <label class="control-label">Place</label>
+           <div class="controls">
+               <input type="text" class="input-xlarge" id="place" name="place">
+           </div>
+       </div>
+       
+       <div class="control-group">
+           <label class="control-label">Begin Time</label>
+           <div class="controls">
+               <input type="text" class="input-xsmall" id="beginDate" name="beginDate">
+               <input type="text" class="input-xxsmall" id="beginTime" name="beginTime">
+           </div>
+       </div>
+       <span id="warning" class="error"/>
+   </fieldset>
+  </form>
+</div>
