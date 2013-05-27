@@ -1,6 +1,7 @@
 var User = require("../models/user");
 var Activity = require("../models/activity");
 var Enrollment = require("../models/enrollment");
+var Mail = require("../models/mail");
 /*
  * GET home page.
  */
@@ -34,7 +35,7 @@ exports.doLogin = function(req, res) {
 };
 
 exports.logout = function(req, res) {
-   req.session.error = "";
+    req.session.error = "";
     req.session.user = null;
     res.redirect("/login");
 };
@@ -117,28 +118,41 @@ exports.index = function(req, res) {
 };
 
 exports.getActivityList = function(req, res) {
+   debugger;
    new Activity().getActivities(
       function(activityList) {
-         res.render("activities", {title: "Activites List", activityList: activityList
-      });
+         res.render("activities", {title: "Activites List", activityList: activityList});
       }
    );
 };
 
 exports.launchActivity = function(req, res) {
+   debugger;
    var newActivity = new Activity({
       content: req.body['content'],
       place:req.body['place'],
-       orginatorId: req.session.user.id,
+      orginatorId: req.session.user.id,
       createTime: convertDateTimeFromClient(req.body['beginDate'], req.body['beginTime']),
    });
    newActivity.save(function (error) {
         req.session.error = "";
         if (error) {
            req.session.error = error.message;
+        } else if (req.body['mailTo'] != undefined) {
+           var launcher = req.session.user.name;
+           Mail.sendMail(launcher, req.body['mailTo'], 
+           Mail.launchAcSubject(launcher, req.body['content']),
+           Mail.luanchAcContent(launcher, req.body['content']),
+            function (error, response) {
+               return res.redirect("/activity");
+            });
+           return;
         }
+        
         return res.redirect("/activity");
      });
+   
+  
 };
 
 exports.checkActivityNotEnrolled = function (req, res, next) {
