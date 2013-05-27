@@ -23,7 +23,9 @@ Activity.prototype.save = function save(callback) {
 var queryState = "SELECT id, user_id, \"content\", \"place\", create_time, \"status\" FROM \"activity\"";
 Activity.prototype.getActivities = function get(callback) {
    dbServer.query(queryState, null, function(err, results) {
-      
+      console.log("Pansy says: " + err);
+      console.log("Pansy says: " + results.rowCount);
+	  debugger;
       if (results == null || results.length <= 0) {
          return callback(null);
       }
@@ -93,7 +95,7 @@ Activity.mergeActivities = function (activityList) {
       }
    }
    return newList;
-}
+};
 
 Activity.contains = function (activityList, acId) {
    if (activityList && activityList.length > 0) {
@@ -104,7 +106,7 @@ Activity.contains = function (activityList, acId) {
       }
    }
    return -1;
-}
+};
 
 // enrollmentList is list of object{activity_id, user_id}
 Activity.getAttendees = function (activityId, enrollmentList) {
@@ -120,7 +122,7 @@ Activity.getAttendees = function (activityId, enrollmentList) {
       }
    }
    return array;
-}
+};
 
 Activity.convertActivityList = function (acList) {
    var newList = new Array();
@@ -130,7 +132,7 @@ Activity.convertActivityList = function (acList) {
       }
    }
    return newList;
-}
+};
 
 Activity.convertActivity = function (acFromDb) {
    var ac = new Activity();
@@ -146,7 +148,7 @@ Activity.convertActivity = function (acFromDb) {
    }
    
    return ac;
-}
+};
 
 
 

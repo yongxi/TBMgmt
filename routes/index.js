@@ -143,15 +143,15 @@ exports.launchActivity = function(req, res) {
 
 exports.checkActivityNotEnrolled = function (req, res, next) {
    next();
-}
+};
 
 exports.checkActivityEnrolled = function (req, res, next) {
    next();
-}
+};
 
 exports.checkIsActivityOwner = function (req, res, next) {
    next();
-}
+};
 
 exports.quitOneActivity = function (req, res, next) {
    Enrollment.quitOneActivity(req.session.user.id, req.body['activityId'],
@@ -163,7 +163,7 @@ exports.quitOneActivity = function (req, res, next) {
        return res.redirect("/");
       }
    );
-}
+};
 
 exports.enrollOneActivity = function (req, res, next) {
    console.log(req.session.user.id + 'current user');
@@ -183,7 +183,7 @@ exports.closeAnActivity = function (req, res, next) {
    Activity.closeOneActivity(req.body["activityId"], function (error, result) {
       console.log("close back");
       return res.redirect("/");
-   })
+   });
 };
 
 exports.checkLogin = function (req, res, next) {

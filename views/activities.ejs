@@ -69,14 +69,16 @@
 </script>
 
 <div class="launchBorder">
-  <button id="createBtn" type="input" onclick="onOpenCreatePostDialog()">Launch</button>
+  <button id="createBtn" type="input">Launch</button>
 </div>
 <div id="main">
    <p>
      <ul>
-     <% activityList.forEach(function(activity){ %>
-        <% include items/listItem %>
-      <% }) %>
+     <% if(activityList != null) { %>
+     <%    activityList.forEach(function(activity){ %>
+     <%      include items/listItem %>
+     <%    }); %>
+     <% }%>
      </ul>
    </p>
 </div>
