@@ -1,0 +1,119 @@
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C/DTD HTML 4.01//EN">
+<html xmlns="http://ww.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    
+    <script src="/javascripts/commonUtil.js"></script>
+    
+    <script>
+       function testDomSupport () {
+         var supportsDom2Core = document.implementation.hasFeature("Core", "2.0");
+         var supportsDom3Core = document.implementation.hasFeature("Core", "3.0");
+         var supportsDom2Xml = document.implementation.hasFeature("XML", "2.0");
+         var supportsDom2Css = document.implementation.hasFeature("CSS", "2.0");
+         
+         return "Support Dom2 core : " + supportsDom2Core + ";<br> Support DOM3 core: " + supportsDom3Core +
+             ";<br> Support Dom2 XML: " + supportsDom2Xml + ";<br> Support CSS2: " + supportsDom2Css;
+       }
+       
+       function isDefaultNameSpace(nsUri) {
+         return document.body.isDefaultNamespace(nsUri) + document.doctype.publicId +" " + document.defaultView + 
+         "<br> Style " + test.style.cssText;
+       }
+
+       function debounce(func, wait, immediate) {
+           var timeout;
+           return function () {
+              var context = this, arg = arguments;
+              
+              var later = function () {
+                timeout = null;
+                 func.apply(context, arg);
+               };
+              
+              clearTimeout(timeout);
+              if (immediate) {
+                 func.apply(context, arg);
+              }  else {
+                  timeout = setTimeout(later, wait);
+              }
+           };
+       }
+       
+       (
+          function statisticPageShow() {
+            var showCount = 0;
+            EventUtil.addHandler(window, "load", function() {
+               alert("Window loads.");
+            });
+            
+            EventUtil.addHandler(window, "pageshow", function() {
+               showCount++;
+               alert("Page shows " + showCount + " times. Persisted? " + event.persisted);
+            });
+            
+         }
+      );
+      
+    </script>
+  </head>
+  <body id="body">
+  <div>
+     <input type="button" id="debounceBtn" value="Test Debounce" />
+     <div id="test" style="width:500px; height:200px; background-color:silver; padding:5px">
+        Click here to see Browser's supporting to DOM core
+     </div>
+     
+     <div id="result" style="width:500px; height:200px; background-color:silver; padding:5px">
+        Click here to see Browser's supporting to DOM core
+     </div>
+    
+    <ul id = "myList">
+       <li id = "goSomewhere">Go Somewhere</li>
+       <li id = "doSomething">Do something</li>
+       <li id = "sayHello"> Hello </li>
+    </ul>
+   </div>
+  
+  
+  </body>
+  <script>
+  
+   function onClick() {
+       $("#test").html(testDomSupport() + "<br> Default name space: " + isDefaultNameSpace("http://ww.w3.org/1999/xhtml")
+       );
+       $("#result").html((document.hasFocus()) +  document.activeElement.id);
+    }
+    
+    
+   $(
+     function() {
+       document.getElementById("debounceBtn").addEventListener("click", onClick);
+     }
+   )
+   
+   var list = document.getElementById("myList");
+      EventUtil.addHandler(list, "click", function () {
+           switch (event.target.id) {
+              case "goSomewhere":
+                 location.href = "home";
+                 break;
+              case "doSomething":
+                 document.title = "Hello World";
+                 break;
+              case "sayHello":
+                 alert("Hello");
+                 break;
+           }
+        }
+      );
+  </script>
+</html>

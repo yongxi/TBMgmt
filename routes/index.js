@@ -5,6 +5,9 @@ var Mail = require("../models/mail");
 /*
  * GET home page.
  */
+exports.refreshHome = function (req, res) {
+   res.render("home", {title: "Hello"});
+}
 
 exports.login = function(req, res) {
    res.render("login", {title: "Login"});

@@ -1,0 +1,49 @@
+<element name="x-calendar" attributes="openingAc">
+  <template>
+    <div id="calendar" class="calendar">
+       <div id="dateRow" class="dateRow"></div>
+       <div id="dayRow" class="dayRow"></div>
+       <div id="acRow" class="acRow"> <a href="#">{{openingAc}}</a> ac</div>
+    </div>
+  </template>
+  <link rel='stylesheet' href='stylesheets/style.css' />
+  <script>
+    Polymer.register(this, {
+      openingAc: 0,
+      formateNumber: function(value) {
+         if (isNaN(value)) {
+            return "00";
+         }
+         return value < 10 ? "0" + value : value;
+      },
+      getWeekday: function(value) {
+         switch(value) {
+            case 0:
+               return "Sunday";
+            case 1:
+               return "Monday";
+            case 2:
+               return "Tuesday";
+            case 3:
+               return "Wednesday";
+            case 4:
+               return "Thursday"; 
+            case 5:
+               return "Friday";
+            case 6:
+               return "Saturday";  
+            default:
+              return "Null";
+         }
+      },
+      getDateString: function() {
+         var date = new Date();
+         return date.getFullYear() + "/" + this.formateNumber(date.getMonth()) + "/" + this.formateNumber(date.getDate());
+      },
+      ready: function() {
+         this.$.dateRow.innerHTML =this.getDateString();
+         this.$.dayRow.innerHTML = this.getWeekday(new Date().getDay());
+      },
+    });
+  </script>
+</element>

@@ -1,0 +1,52 @@
+<% include layoutTop %>
+<link rel="import" href="elements/x-calendar.html">
+<link rel="import" href="elements/js-learning.html">
+
+<div id="main" >
+   <x-calendar></x-calendar>
+   <js-learning></js-learning>
+</div>
+
+<script>
+   $(
+     function() {
+       setSelectedNavItem("homeBtn");
+     }
+   );
+   
+   function Person(name) {
+      this.getName = function () {
+         return name;
+      };
+      this.setName = function (value) {
+         name = value;
+      }
+   }
+   
+   var singleton = function() {
+      var count = 1;
+      function privateFunction() {
+        return count;
+      };
+      return {
+        getCount: function() {
+           count++;
+           return privateFunction();
+        }
+      };
+   }
+   
+   function hasPlugin(name) {
+      var plugins = navigator.plugins;
+      for (var i = 0; i < plugins.length; i++) {
+         if (plugins[i].name.toLowerCase().indexOf(name) > -1) {
+            return true;
+         }
+      }
+      return false;
+   }
+   
+   alert("debug " + hasPlugin("flash"));
+
+</script>
+<% include layoutBottom %>

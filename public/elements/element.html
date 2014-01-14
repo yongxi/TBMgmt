@@ -1,0 +1,20 @@
+<element name="tk-element" attributes="name color">
+  <template>
+    <span>I'm <b>{{name}}</b>. This is my Shadow DOM. And I like <span style="color:{{color}}">{{color}}</span></span>
+    </br>
+    <input id="nameInput" value="{{name}}" placeholder="Enter your name..."/>
+  </template>
+  <script>
+    Polymer.register(this, {
+      name: "Pansy",
+      ready: function() {
+         this.$.nameInput.focus();
+      },
+      nameChanged: function() {
+        if (this.name) {
+           this.name = this.name[0].toUpperCase() + this.name.slice(1);
+        }
+      },
+    });
+  </script>
+</element>

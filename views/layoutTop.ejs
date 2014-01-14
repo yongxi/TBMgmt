@@ -5,6 +5,7 @@
     
      
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="polymer/polymer.js"></script>
     
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
@@ -14,36 +15,37 @@
     
     <script src="/javascripts/commonUtil.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    
   </head>
   <body id="topContainer">
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-         <a class="brand" href="/">Aurora UI</a>
-	     <div class="nav-collapse collapse">
-			  <ul id="navBar" class="nav">
-				<% if (!currentUser) { %>
-				<li id="loginBtn"><a href="/login">Login</a></li>
-				<li id="registerBtn"><a href="/register">Register</a></li>
-				<% } else { %>
-				<li class="active" id="openingAcBtn"><a href="/">Opening Activities</a></li>
-				<li id="allAcBtn"><a href="/activity">All Activities</a></li>
-				<% } %>
-			  </ul>
-		  </div>
-		  
-		  <% if (currentUser) { %>
-			  <div class="nav-collapse collapse user">
-				  <ul class="nav">
-					<li><a href="/logout">Logout - <%= currentUser.name %></a></li>
-				  </ul>
-			  </div>
-		  <% } %>
+         <a class="brand" href="/">Logo</a>
+        <div class="nav-collapse collapse">
+           <ul id="navBar" class="nav">
+            <% if (!currentUser) { %>
+            <li id="loginBtn"><a href="/login">Login</a></li>
+            <li id="registerBtn"><a href="/register">Register</a></li>
+            <% } else { %>
+            <li class="active" id="openingAcBtn"><a href="/">Opening</a></li>
+            <li id="allAcBtn"><a href="/activity">All</a></li>
+            <li id="homeBtn"><a href="/home">Polymer</a></li>
+            <li id="htmlBtn"><a href="/index.html">HTML</a></li>
+            <% } %>
+           </ul>
+        </div>
+        
+        <% if (currentUser) { %>
+           <div class="nav-collapse collapse user">
+              <ul class="nav">
+               <li><a href="/logout">Logout - <%= currentUser.name %></a></li>
+              </ul>
+           </div>
+        <% } %>
         </div>
       </div>
     </div>    
     
-	<% if (error) { %>
-	 <div id="error"><%= error %></div>
-	<% } %>
+   <% if (error) { %>
+    <div id="error"><%= error %></div>
+   <% } %>

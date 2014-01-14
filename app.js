@@ -80,6 +80,15 @@ app.post('/quitAc', routes.quitOneActivity);
 app.post('/closeAc', routes.checkIsActivityOwner);
 app.post('/closeAc', routes.closeAnActivity);
 
+app.get('/home', routes.refreshHome);
+/*app.get('/home', function (req, res) {
+   res.sendfile(__dirname + '/views/test.html')
+});*/
+
+
+app.get('/html', function (req, res) {
+   res.sendfile(__dirname + '/views/test.html')
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
